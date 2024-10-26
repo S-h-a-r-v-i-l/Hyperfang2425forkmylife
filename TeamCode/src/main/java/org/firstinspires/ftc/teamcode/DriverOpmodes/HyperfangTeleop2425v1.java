@@ -12,7 +12,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
     public DcMotorEx leftBack = null;
     public DcMotorEx rightFront = null;
     public DcMotorEx rightBack = null;
-    public CRServo rotServo = null;
+    //public CRServo rotServo = null;
 
 
     @Override
@@ -23,10 +23,10 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-        rotServo = hardwareMap.get(CRServo.class, "rotServo");
+        //rotServo = hardwareMap.get(CRServo.class, "rotServo");
 
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
-        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
+        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
 
         leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -77,16 +77,15 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 sleep(1000);
             }
 
-            if(gamepad2.x){
-                rotServo.setPower(1);
-                sleep(200);
-            }
-
-            if(gamepad2.a){
-                rotServo.setPower(-1);
-                sleep(200);
-            }
-
+//            if(gamepad2.x){
+//                rotServo.setPower(1);
+//                sleep(200);
+//            }
+//
+//            if(gamepad2.a){
+//                rotServo.setPower(-1);
+//                sleep(200);
+//            }
             if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper) {speed = Math.min(speed + 0.2, 1);}
             else if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper) {speed = Math.max(speed - 0.2, 0);}
 
