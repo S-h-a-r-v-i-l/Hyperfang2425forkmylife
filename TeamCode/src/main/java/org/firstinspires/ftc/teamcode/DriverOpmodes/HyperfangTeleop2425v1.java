@@ -17,13 +17,12 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
 
     public CRServo rRP = null;
     public CRServo lRP = null;
-    public CRServo rHook = null;
-    public CRServo lHook = null;
-    public CRServo clawOpen = null;
-    public CRServo clawBelt = null;
-    public CRServo armRight = null;
-    public CRServo armLeft = null;
-    //public CRServo rotServo = null;
+    public CRServo clawLeft = null; //hanging claws
+    public CRServo clawRight = null;
+    public CRServo clawOpen = null; //actual claw itself
+    public CRServo clawBelt = null; //rotational servo
+
+
 
 
     @Override
@@ -38,7 +37,11 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         rL = hardwareMap.get(DcMotorEx.class, "rightLift");
         rRP = hardwareMap.get(CRServo.class, "rightR&P");
         lRP = hardwareMap.get(CRServo.class, "leftR&P");
-        //rotServo = hardwareMap.get(CRServo.class, "rotServo");
+        clawOpen = hardwareMap.get(CRServo.class, "clawOpen");
+        clawBelt = hardwareMap.get(CRServo.class, "clawBelt");
+        clawLeft = hardwareMap.get(CRServo.class, "clawRight");
+        clawRight = hardwareMap.get(CRServo.class, "clawLeft");
+
 
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
@@ -86,21 +89,55 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             rightFront.setPower(frontRightPower);
             rightBack.setPower(backRightPower);
 
-            if(gamepad1.b){
-                leftFront.setPower(1);
-                rightBack.setPower(1);
-                sleep(1000);
+
+
+            if(gamepad2.left_stick_button){
+                lL.setPower(gamepad2.left_stick_y);
+                rL.setPower(gamepad2.left_stick_y);
+
+            } else {
+                lL.setPower(0);
+                rL.setPower(0);
             }
 
-//            if(gamepad2.x){
-//                rotServo.setPower(1);
-//                sleep(200);
-//            }
-//
-//            if(gamepad2.a){
-//                rotServo.setPower(-1);
-//                sleep(200);
-//            }
+            if(gamepad2.right_stick_button){
+                lRP.setPower(gamepad2.right_stick_y);
+                rRP.setPower(gamepad2.right_stick_y);
+            }
+            else {
+                lRP.setPower(0);
+                rRP.setPower(0);
+            }
+
+            if (gamepad2.right_bumper) {
+                clawOpen.setPower(0.5);
+            } else if (gamepad2.left_bumper) {
+                clawOpen.setPower(-0.5);
+            }else {
+                clawOpen.setPower(0);
+            }
+
+            if (gamepad2.right_trigger >= 0.5) {
+                clawBelt.setPower(0.5);
+            } else if (gamepad2.left_trigger >= 0.5) {
+                clawBelt.setPower(-0.5);
+            }else {
+                clawBelt.setPower(0);
+            }
+
+            if (gamepad2.y) {
+                clawLeft.setPower(0.3);
+                clawRight.setPower(0.3);
+            } else if (gamepad2.a) {
+                clawLeft.setPower(-0.3);
+                clawRight.setPower(-0.3);
+            } else {
+                clawLeft.setPower(0);
+                clawRight.setPower(0);
+
+            }
+
+
             if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper) {speed = Math.min(speed + 0.2, 1);}
             else if (currentGamepad1.left_bumper && !previousGamepad1.left_bumper) {speed = Math.max(speed - 0.2, 0);}
 
