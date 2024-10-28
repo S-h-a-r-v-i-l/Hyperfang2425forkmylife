@@ -12,6 +12,17 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
     public DcMotorEx leftBack = null;
     public DcMotorEx rightFront = null;
     public DcMotorEx rightBack = null;
+    public DcMotorEx lL = null;
+    public DcMotorEx rL = null;
+
+    public CRServo rRP = null;
+    public CRServo lRP = null;
+    public CRServo rHook = null;
+    public CRServo lHook = null;
+    public CRServo clawOpen = null;
+    public CRServo clawBelt = null;
+    public CRServo armRight = null;
+    public CRServo armLeft = null;
     //public CRServo rotServo = null;
 
 
@@ -23,6 +34,10 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+        lL = hardwareMap.get(DcMotorEx.class, "leftLift");
+        rL = hardwareMap.get(DcMotorEx.class, "rightLift");
+        rRP = hardwareMap.get(CRServo.class, "rightR&P");
+        lRP = hardwareMap.get(CRServo.class, "leftR&P");
         //rotServo = hardwareMap.get(CRServo.class, "rotServo");
 
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
