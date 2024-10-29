@@ -22,8 +22,8 @@ public class LiftLift extends LinearOpMode{
 
         lL = hardwareMap.get(DcMotorEx.class, "leftLift");
         rL = hardwareMap.get(DcMotorEx.class, "rightLift");
-        rRP = hardwareMap.get(CRServo.class, "rightR&P");
-        lRP = hardwareMap.get(CRServo.class, "leftR&P");
+//        rRP = hardwareMap.get(CRServo.class, "rightR&P");
+//        lRP = hardwareMap.get(CRServo.class, "leftR&P");
 
         lL.setDirection(DcMotorEx.Direction.REVERSE);
         lL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -36,10 +36,10 @@ public class LiftLift extends LinearOpMode{
 
             rL.setPower(gamepad1.left_stick_y * 0.5);
             lL.setPower(gamepad1.left_stick_y * 0.5);
-            if (gamepad1.right_bumper) {
-                rRP.setPower(0.2);
-                lRP.setPower(0.2);
-            }
+//            if (gamepad1.right_bumper) {
+//                rRP.setPower(0.2);
+//                lRP.setPower(0.2);
+//            }
         }
     }
 }
