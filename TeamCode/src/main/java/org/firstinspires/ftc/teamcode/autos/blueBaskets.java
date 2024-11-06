@@ -48,12 +48,7 @@ public class blueBaskets extends LinearOpMode {
             leftBack.setPower(1);
             rightBack.setPower(1);
         }
-        while(runtime.seconds() < 1.7)
-            leftFront.setPower(1);
-            rightFront.setPower(1);
-            leftBack.setPower(1);
-            rightBack.setPower(1);
-        }
+
 
     }
 
