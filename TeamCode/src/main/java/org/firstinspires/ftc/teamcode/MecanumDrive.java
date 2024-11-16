@@ -73,8 +73,9 @@ public final class MecanumDrive {
         public double kA = 0;
 
         //* Experimental Values for feedforward parameters
-        // kS = 2.5
+        // kS = 2.6
         // kV = -0.00055
+        // kA = 0.000005
 
 
 
