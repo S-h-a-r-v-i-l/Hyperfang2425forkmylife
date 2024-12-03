@@ -41,6 +41,7 @@ public class blueBaskets extends LinearOpMode {
     double myTagPoseRange;
     double myTagPoseBearing;
     double myTagPoseElevation;
+    double firstApproachDistance = 0;
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
@@ -74,13 +75,15 @@ public class blueBaskets extends LinearOpMode {
                 // Push telemetry to the Driver Station.
                 telemetry.update();
 
+                if(firstApproachDistance == 0) firstApproachDistance = myTagPoseY;
+
                 // Save CPU resources; can resume streaming when needed.
                 // Share the CPU.
                 sleep(20);
             }
         }
 
-
+        
 
         // Save more CPU resources when camera is no longer needed.
         visionPortal.close();

@@ -18,12 +18,15 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
 
     public CRServo rRP = null;
     public CRServo lRP = null;
-    public CRServo clawLeft = null; //hanging claws
-    public CRServo clawRight = null;
     public CRServo clawOpen = null; //actual claw itself
-    public CRServo clawBelt = null; //rotational servo
-
-
+    public CRServo armServoRight = null;
+    public CRServo armServoLeft = null;
+    public CRServo intakeServoExtenderRight = null;
+    public CRServo intakeServoExtenderLeft = null;
+    public CRServo intakeClawRotaterRight = null;
+    public CRServo intakeClawRotaterLeft = null;
+    public CRServo intakeSpinnerRight = null;
+    public CRServo intakeSpinnerLeft = null;
 
 
     @Override
@@ -39,14 +42,19 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         rRP = hardwareMap.get(CRServo.class, "rightRandP");
         lRP = hardwareMap.get(CRServo.class, "leftRandP");
         clawOpen = hardwareMap.get(CRServo.class, "clawOpen");
-        clawBelt = hardwareMap.get(CRServo.class, "clawBelt");
-        clawLeft = hardwareMap.get(CRServo.class, "clawRight");
-        clawRight = hardwareMap.get(CRServo.class, "clawLeft");
-
+        armServoRight = hardwareMap.get(CRServo.class, "asr");
+        armServoLeft = hardwareMap.get(CRServo.class, "asl");
+        intakeServoExtenderRight = hardwareMap.get(CRServo.class, "iser");
+        intakeServoExtenderLeft = hardwareMap.get(CRServo.class, "isel");
+        intakeClawRotaterRight = hardwareMap.get(CRServo.class, "icrr");
+        intakeClawRotaterLeft = hardwareMap.get(CRServo.class, "icrl");
+        intakeSpinnerRight = hardwareMap.get(CRServo.class, "isr");
+        intakeSpinnerLeft = hardwareMap.get(CRServo.class, "isl");
 
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
         lL.setDirection(DcMotorEx.Direction.REVERSE);
+
 
         lL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -103,13 +111,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             lRP.setPower(gamepad2.right_stick_y);
             rRP.setPower(-1 * gamepad2.right_stick_y);
 
-            if (gamepad2.right_bumper) {
-                clawBelt.setPower(1);
-            } else if (gamepad2.left_bumper) {
-                clawBelt.setPower(-1);
-            }else {
-                clawBelt.setPower(0);
-            }
+
 
             if (gamepad2.right_trigger >= 0.5) {
                 clawOpen.setPower(1);
@@ -119,16 +121,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 clawOpen.setPower(0);
             }
 
-            if (gamepad2.y) {
-                clawLeft.setPower(1);
-                clawRight.setPower(-1);
-            } else if (gamepad2.a) {
-                clawLeft.setPower(-1);
-                clawRight.setPower(1);
-            } else {
-                clawLeft.setPower(0);
-                clawRight.setPower(0);
-            }
+            
 
 
             if (currentGamepad1.right_bumper && !previousGamepad1.right_bumper) {speed = Math.min(speed + 0.2, 1);}
