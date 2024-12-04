@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class HyperfangTeleop2425v1 extends LinearOpMode{
@@ -23,8 +24,8 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
     public CRServo armServoLeft = null;
     public CRServo intakeServoExtenderRight = null;
     public CRServo intakeServoExtenderLeft = null;
-    public CRServo intakeClawRotaterRight = null;
-    public CRServo intakeClawRotaterLeft = null;
+    public Servo intakeClawRotaterRight = null;
+    public Servo intakeClawRotaterLeft = null;
     public CRServo intakeSpinnerRight = null;
     public CRServo intakeSpinnerLeft = null;
 
@@ -39,17 +40,18 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
         lL = hardwareMap.get(DcMotorEx.class, "leftLift");
         rL = hardwareMap.get(DcMotorEx.class, "rightLift");
-        rRP = hardwareMap.get(CRServo.class, "rightRandP");
-        lRP = hardwareMap.get(CRServo.class, "leftRandP");
+
+        rRP = hardwareMap.get(CRServo.class, "hangR");
+        lRP = hardwareMap.get(CRServo.class, "hangL");
         clawOpen = hardwareMap.get(CRServo.class, "clawOpen");
-        armServoRight = hardwareMap.get(CRServo.class, "asr");
-        armServoLeft = hardwareMap.get(CRServo.class, "asl");
-        intakeServoExtenderRight = hardwareMap.get(CRServo.class, "iser");
-        intakeServoExtenderLeft = hardwareMap.get(CRServo.class, "isel");
-        intakeClawRotaterRight = hardwareMap.get(CRServo.class, "icrr");
-        intakeClawRotaterLeft = hardwareMap.get(CRServo.class, "icrl");
-        intakeSpinnerRight = hardwareMap.get(CRServo.class, "isr");
-        intakeSpinnerLeft = hardwareMap.get(CRServo.class, "isl");
+        armServoRight = hardwareMap.get(CRServo.class, "elbowR");
+        armServoLeft = hardwareMap.get(CRServo.class, "elbowL");
+        intakeServoExtenderRight = hardwareMap.get(CRServo.class, "intakeSlidesR");
+        intakeServoExtenderLeft = hardwareMap.get(CRServo.class, "intakeSlidesL");
+        intakeClawRotaterRight = hardwareMap.get(Servo.class, "intakeRotateR");
+        intakeClawRotaterLeft = hardwareMap.get(Servo.class, "intakeRotateL");
+        intakeSpinnerRight = hardwareMap.get(CRServo.class, "intakeWheelR");
+        intakeSpinnerLeft = hardwareMap.get(CRServo.class, "intakeWheelL");
 
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
@@ -68,6 +70,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         rightFront.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
+
 
         Gamepad currentGamepad1 = new Gamepad();
         Gamepad currentGamepad2 = new Gamepad();
@@ -112,13 +115,22 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             rRP.setPower(-1 * gamepad2.right_stick_y);
 
 
+            if (gamepad2.x) {
+            } else if (gamepad2.b) {
+            }else {
+
+            }
+
 
             if (gamepad2.right_trigger >= 0.5) {
-                clawOpen.setPower(1);
+                intakeSpinnerLeft.setPower(1);
+                intakeSpinnerRight.setPower(-1);
             } else if (gamepad2.left_trigger >= 0.5) {
-                clawOpen.setPower(-1);
+                intakeSpinnerLeft.setPower(-1);
+                intakeSpinnerRight.setPower(1);
             }else {
-                clawOpen.setPower(0);
+                intakeSpinnerLeft.setPower(0);
+                intakeSpinnerRight.setPower(0);
             }
 
             
