@@ -111,13 +111,47 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             lL.setPower(gamepad2.left_stick_y * 0.5);
             rL.setPower(gamepad2.left_stick_y * 0.5);
 
-            lRP.setPower(gamepad2.right_stick_y);
-            rRP.setPower(-1 * gamepad2.right_stick_y);
+            intakeServoExtenderRight.setPower(gamepad2.right_stick_y);
+            intakeServoExtenderLeft.setPower(-1 * gamepad2.right_stick_y);
 
+
+            if (gamepad1.y) {
+                lRP.setPower(-1);
+                rRP.setPower(1);
+            } else if (gamepad1.a) {
+                lRP.setPower(1);
+                rRP.setPower(-1);
+            }else {
+                lRP.setPower(0);
+                rRP.setPower(0);
+            }
+
+            if (gamepad2.y) {
+                armServoLeft.setPower(-1);
+                armServoRight.setPower(1);
+            } else if (gamepad2.a) {
+                armServoLeft.setPower(1);
+                armServoRight.setPower(-1);
+            }else {
+                armServoRight.setPower(0);
+                armServoLeft.setPower(0);
+            }
 
             if (gamepad2.x) {
+                clawOpen.setPower(1);
             } else if (gamepad2.b) {
+                clawOpen.setPower(-1);
             }else {
+                clawOpen.setPower(0);
+            }
+
+            if(gamepad2.dpad_left){
+
+            } else if(gamepad2.dpad_up){
+
+            } else if(gamepad2.dpad_right){
+
+            } else {
 
             }
 
@@ -132,6 +166,8 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 intakeSpinnerLeft.setPower(0);
                 intakeSpinnerRight.setPower(0);
             }
+
+
 
             
 
