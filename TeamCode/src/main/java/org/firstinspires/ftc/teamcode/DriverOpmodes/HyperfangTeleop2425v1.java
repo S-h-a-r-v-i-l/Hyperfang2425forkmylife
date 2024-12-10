@@ -110,11 +110,9 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
 
 
 
-            lL.setPower(gamepad2.left_stick_y * 0.5);
-            rL.setPower(gamepad2.left_stick_y * 0.5);
+            lL.setPower(gamepad2.right_stick_y * 0.5);
+            rL.setPower(gamepad2.right_stick_y * 0.5);
 
-            intakeServoExtenderRight.setPower(gamepad2.right_stick_y);
-            intakeServoExtenderLeft.setPower(-1 * gamepad2.right_stick_y);
 
 
             if (gamepad1.y) {
@@ -139,16 +137,19 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 armServoLeft.setPower(0);
             }
 
-            if (gamepad2.left_stick_y > 0) {
-                intakeServoExtenderLeft.setPower(-1);
-                intakeServoExtenderRight.setPower(1);
-            } else if (gamepad2.left_stick_y > 0) {
-                intakeServoExtenderLeft.setPower(1);
-                intakeServoExtenderRight.setPower(-1);
-            }else {
-                intakeServoExtenderLeft.setPower(0);
-                intakeServoExtenderRight.setPower(0);
-            }
+//            if (gamepad2.left_stick_y > 0) {
+//                intakeServoExtenderLeft.setPower(-gamepad2.left_stick_y);
+//                intakeServoExtenderRight.setPower(gamepad2.left_stick_y);
+//            } else if (gamepad2.left_stick_y < 0) {
+//                intakeServoExtenderLeft.setPower(gamepad2.left_stick_y);
+//                intakeServoExtenderRight.setPower(-gamepad2.left_stick_y);
+//            }else {
+//                intakeServoExtenderLeft.setPower(0);
+//                intakeServoExtenderRight.setPower(0);
+//            }
+
+            intakeServoExtenderLeft.setPower(-gamepad2.left_stick_y);
+            intakeServoExtenderRight.setPower(gamepad2.left_stick_y);
 
             if (gamepad2.x) {
                 clawOpen.setPower(1);
