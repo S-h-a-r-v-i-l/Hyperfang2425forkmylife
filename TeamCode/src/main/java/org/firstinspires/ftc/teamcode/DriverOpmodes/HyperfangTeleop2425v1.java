@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
 public class HyperfangTeleop2425v1 extends LinearOpMode{
@@ -32,7 +33,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
 
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         double speed, lift; speed = 1; lift = 1;
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
@@ -62,6 +63,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
 
         lL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -110,9 +112,17 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
 
 
 
-            lL.setPower(gamepad2.right_stick_y * 0.5);
-            rL.setPower(gamepad2.right_stick_y * 0.5);
+            lL.setPower(-gamepad2.right_stick_y * 0.8);
+            rL.setPower(-gamepad2.right_stick_y * 0.8);
 
+//            if(lL.getPower() > 0){
+//                ElapsedTime timer = new ElapsedTime();
+//                timer.startTime();
+//                while(timer.seconds() < 0.1){
+//                    intakeServoExtenderLeft.setPower(-0.5);
+//                    intakeServoExtenderRight.setPower(0.5);
+//                }
+//            }
 
 
             if (gamepad1.y) {
@@ -127,11 +137,11 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             }
 
             if (gamepad2.y) {
-                armServoLeft.setPower(-1);
-                armServoRight.setPower(1);
+                armServoLeft.setPower(-0.2);
+                armServoRight.setPower(0.2);
             } else if (gamepad2.a) {
-                armServoLeft.setPower(1);
-                armServoRight.setPower(-1);
+                armServoLeft.setPower(0.2);
+                armServoRight.setPower(-0.2);
             }else {
                 armServoRight.setPower(0);
                 armServoLeft.setPower(0);
@@ -148,8 +158,8 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
 //                intakeServoExtenderRight.setPower(0);
 //            }
 
-            intakeServoExtenderLeft.setPower(-gamepad2.left_stick_y);
-            intakeServoExtenderRight.setPower(gamepad2.left_stick_y);
+            intakeServoExtenderLeft.setPower(-gamepad2.left_stick_y * 0.3);
+            intakeServoExtenderRight.setPower(gamepad2.left_stick_y * 0.3);
 
             if (gamepad2.x) {
                 clawOpen.setPower(1);
@@ -159,14 +169,21 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 clawOpen.setPower(0);
             }
 
+            double intakePos = 0.0;
             if(gamepad2.dpad_left){
-
+                intakePos = 0.6;
+                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+                intakeClawRotaterRight.setPosition(intakePos);
+            } else if(gamepad2.dpad_right) {
+                intakePos = 0.2;
+                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+                intakeClawRotaterRight.setPosition(intakePos);
             } else if(gamepad2.dpad_up){
-                intakeClawRotaterLeft.setPosition(0);
-                intakeClawRotaterRight.setPosition(0);
-            } else if(gamepad2.dpad_right){
-
+                intakePos = 0.4;
+                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+                intakeClawRotaterRight.setPosition(intakePos);
             }
+
 
 
             if (gamepad2.right_trigger >= 0.5) {
@@ -191,6 +208,16 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             telemetry.addLine("speed: " + speed);
             telemetry.update();
             sleep(50);
+
+
+            if (currentGamepad2.y) {
+                lRP.setPower(1);
+                rRP.setPower(1);
+            }
+            if (currentGamepad2.a) {
+                lRP.setPower(-1);
+                rRP.setPower(-1);
+            }
         }
     }
 }
