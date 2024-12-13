@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -23,7 +24,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Config
 @Autonomous(name = "BlueBasketsAuto", group = "Autonomous")
-public class BlueSideTestAuto extends LinearOpMode {
+public class BlueSideTestAuto extends LinearOpMode{
     public class Lifts{
         private DcMotorEx leftLift;
         private DcMotorEx rightLift;
@@ -164,8 +165,14 @@ public class BlueSideTestAuto extends LinearOpMode {
         Lifts rightLift = new Lifts(hardwareMap);
 
         TrajectoryActionBuilder mainTab = drive.actionBuilder(initialPose);
+        Trajectory whereWeGoin = drive.trajectoryBuilder(new Pose2d())
+                .forward(5)
+                .strafeRight(20);
+        waitForStart();
 
+        if (isStarted()) return;
 
+        drive.followTrajectory(whereWeGoin);
     }
 
 }
