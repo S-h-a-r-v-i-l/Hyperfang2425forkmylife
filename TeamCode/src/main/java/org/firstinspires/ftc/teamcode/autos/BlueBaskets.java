@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Config
 @Autonomous(name = "BlueBasketsAuto", group = "Autonomous")
-public class BlueSideTestAuto extends LinearOpMode {
+public class BlueBaskets extends LinearOpMode {
     public class Lifts{
         private DcMotorEx leftLift;
         private DcMotorEx rightLift;
@@ -44,7 +44,7 @@ public class BlueSideTestAuto extends LinearOpMode {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    leftLift.setPower(0.8);
+                    leftLift.setPower(-0.8);
                     rightLift.setPower(0.8);
                     initialized = true;
                 }
@@ -70,12 +70,13 @@ public class BlueSideTestAuto extends LinearOpMode {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    leftLift.setPower(-0.8);
+                    leftLift.setPower(0.8);
                     rightLift.setPower(-0.8);
                     initialized = true;
                 }
 
                 double pos = leftLift.getCurrentPosition();
+                //Todo: might be wrong ngl
                 packet.put("liftPos", pos);
                 if (pos > 100.0) {
                     return true;
@@ -160,12 +161,30 @@ public class BlueSideTestAuto extends LinearOpMode {
         Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Claw claw = new Claw(hardwareMap);
-        Lifts leftLift = new Lifts(hardwareMap);
-        Lifts rightLift = new Lifts(hardwareMap);
+        Lifts lifts = new Lifts(hardwareMap);
 
-        TrajectoryActionBuilder mainTab = drive.actionBuilder(initialPose);
+        TrajectoryActionBuilder toBasketsTAB = drive.actionBuilder(initialPose)
+                                               .setTangent(Math.toRadians(345))
+                                               .splineToLinearHeading(new Pose2d(50, 50, (5*Math.PI)/4), Math.toRadians(345));
 
+        Action basketCloseOut = toBasketsTAB.endTrajectory().fresh()
+                .setTangent(Math.toRadians(200))
+                .splineToLinearHeading(new Pose2d(-60, 64, (Math.PI)), Math.toRadians(120))
+                .build();
 
+        Action toBasketsA = toBasketsTAB.build();
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        toBasketsA,
+                        lifts.liftUp(),
+                        claw.rotateClawForward(),
+                        claw.openClaw(),
+                        claw.rotateClawBackward(),
+                        lifts.liftDown(),
+                        basketCloseOut
+                )
+        );
     }
 
 }
