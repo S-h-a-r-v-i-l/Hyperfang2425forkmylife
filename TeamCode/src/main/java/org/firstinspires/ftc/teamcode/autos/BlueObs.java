@@ -22,7 +22,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Config
-@Autonomous(name = "BlueBasketsAuto", group = "Autonomous")
+@Autonomous(name = "BlueObsAuto", group = "Autonomous")
 public class BlueObs extends LinearOpMode {
     public class Lifts{
         private DcMotorEx leftLift;
@@ -165,8 +165,8 @@ public class BlueObs extends LinearOpMode {
         Lifts lifts = new Lifts(hardwareMap);
 
         TrajectoryActionBuilder toBasketsTAB = drive.actionBuilder(initialPose)
-                .setTangent(Math.toRadians(345))
-                .splineToLinearHeading(new Pose2d(50, 50, (5*Math.PI)/4), Math.toRadians(345));
+                .setTangent(Math.toRadians(260))
+                .splineToLinearHeading(new Pose2d(50, 50, (5*Math.PI)/4), Math.toRadians(90));
 
         Action basketCloseOut = toBasketsTAB.endTrajectory().fresh()
                 .setTangent(Math.toRadians(200))

@@ -51,7 +51,7 @@ public class BlueBaskets extends LinearOpMode {
 
                 double pos = leftLift.getCurrentPosition();
                 packet.put("liftPos", pos);
-                if (pos < 3000.0) {
+                if (pos < 10) {
                     return true;
                 } else {
                     leftLift.setPower(0);
@@ -164,7 +164,7 @@ public class BlueBaskets extends LinearOpMode {
         Lifts lifts = new Lifts(hardwareMap);
 
         TrajectoryActionBuilder toBasketsTAB = drive.actionBuilder(initialPose)
-                                               .setTangent(Math.toRadians(345))
+                                               .setTangent(Math.toRadians(270))
                                                .splineToLinearHeading(new Pose2d(50, 50, (5*Math.PI)/4), Math.toRadians(345));
 
         Action basketCloseOut = toBasketsTAB.endTrajectory().fresh()
@@ -174,17 +174,19 @@ public class BlueBaskets extends LinearOpMode {
 
         Action toBasketsA = toBasketsTAB.build();
 
-        Actions.runBlocking(
-                new SequentialAction(
-                        toBasketsA,
-                        lifts.liftUp(),
-                        claw.rotateClawForward(),
-                        claw.openClaw(),
-                        claw.rotateClawBackward(),
-                        lifts.liftDown(),
-                        basketCloseOut
-                )
-        );
+        if(opModeIsActive()) {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            toBasketsA,
+                            lifts.liftUp(),
+                            claw.rotateClawForward(),
+                            claw.openClaw(),
+                            claw.rotateClawBackward(),
+                            lifts.liftDown(),
+                            basketCloseOut
+                    )
+            );
+        }
     }
 
 }

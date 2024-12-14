@@ -55,9 +55,10 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         intakeSpinnerRight = hardwareMap.get(CRServo.class, "intakeWheelR");
         intakeSpinnerLeft = hardwareMap.get(CRServo.class, "intakeWheelL");
 
-        leftBack.setDirection(DcMotorEx.Direction.REVERSE);
-        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
+
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         lL.setDirection(DcMotorEx.Direction.REVERSE);
 
 
@@ -89,25 +90,42 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
 
-            double y = -currentGamepad1.left_stick_y * speed; // Remember, Y stick value is reversed
-            double x = currentGamepad1.left_stick_x * speed; // Counteract imperfect strafing
-            double rx = currentGamepad1.right_stick_x * speed;
+//            double y = -currentGamepad1.left_stick_y * speed; // Remember, Y stick value is reversed
+//            double x = currentGamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+//            double rx = currentGamepad1.right_stick_x * speed;
+//
+//
+//
+//            // Denominator is the largest motor power (absolute value) or 1
+//            // This ensures all the powers maintain the same ratio,
+//            // but only if at least one is out of the range [-1, 1]
+//            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+//            double frontLeftPower = (y + x + rx) / denominator;
+//            double backLeftPower = (y - x + rx) / denominator;
+//            double frontRightPower = (y - x - rx) / denominator;
+//            double backRightPower = (y + x - rx) / denominator;
 
+            double left_stick_x = gamepad1.left_stick_x;
+            double left_stick_y = gamepad1.left_stick_y;
+            double right_stick_x = gamepad1.right_stick_x;
 
-
-            // Denominator is the largest motor power (absolute value) or 1
-            // This ensures all the powers maintain the same ratio,
-            // but only if at least one is out of the range [-1, 1]
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (y + x + rx) / denominator;
-            double backLeftPower = (y - x + rx) / denominator;
-            double frontRightPower = (y - x - rx) / denominator;
-            double backRightPower = (y + x - rx) / denominator;
-
-            leftFront.setPower(frontLeftPower);
-            leftBack.setPower(backLeftPower);
-            rightFront.setPower(frontRightPower);
-            rightBack.setPower(backRightPower);
+            if(Math.abs(left_stick_x) > 0.1 ||
+                    Math.abs(left_stick_y) > .1 || Math.abs(right_stick_x) > 0.1) {
+                rightFront.setPower(((left_stick_y - left_stick_x) + right_stick_x));
+                leftFront.setPower(((left_stick_y + left_stick_x) - right_stick_x));
+                rightBack.setPower(((left_stick_y + left_stick_x) + right_stick_x));
+                leftBack.setPower(((left_stick_y - left_stick_x) - right_stick_x));
+            }
+            else{
+                leftFront.setPower(0);
+                rightFront.setPower(0);
+                rightBack.setPower(0);
+                leftBack.setPower(0);
+            }
+            telemetry.addData("fr:", rightFront.getPower());
+            telemetry.addData("br:", rightBack.getPower());
+            telemetry.addData("fl:", leftFront.getPower());
+            telemetry.addData("bl:", leftBack.getPower());
 
 
 
@@ -115,14 +133,14 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             lL.setPower(-gamepad2.right_stick_y * 0.8);
             rL.setPower(-gamepad2.right_stick_y * 0.8);
 
+            boolean extended = false;
+
 //            if(lL.getPower() > 0){
-//                ElapsedTime timer = new ElapsedTime();
-//                timer.startTime();
-//                while(timer.seconds() < 0.1){
-//                    intakeServoExtenderLeft.setPower(-0.5);
-//                    intakeServoExtenderRight.setPower(0.5);
-//                }
+//                extended = true;
+//                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+//                intakeClawRotaterRight.setPosition(0.7);
 //            }
+
 
 
             if (gamepad1.y) {
@@ -169,21 +187,25 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 clawOpen.setPower(0);
             }
 
+            if(gamepad2.left_bumper){
+                extended = false;
+            }
+
+
             double intakePos = 0.0;
-            if(gamepad2.dpad_left){
+            if (gamepad2.dpad_left) {
                 intakePos = 0.6;
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(intakePos);
-            } else if(gamepad2.dpad_right) {
+            } else if (gamepad2.dpad_right) {
                 intakePos = 0.2;
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(intakePos);
-            } else if(gamepad2.dpad_up){
+            } else if (gamepad2.dpad_up) {
                 intakePos = 0.4;
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(intakePos);
             }
-
 
 
             if (gamepad2.right_trigger >= 0.5) {
