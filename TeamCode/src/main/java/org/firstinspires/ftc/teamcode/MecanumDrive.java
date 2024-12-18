@@ -64,13 +64,13 @@ public final class MecanumDrive {
 
         // drive model parameters
         public double inPerTick = 0.0029756;
-        public double lateralInPerTick = 0.0022065891113203515;
-        public double trackWidthTicks = 4011.698622099612;
+        public double lateralInPerTick = 0.0018723890028932697;
+        public double trackWidthTicks = 4023.681347245428;
 
         // feedforward parameters (in tick units)
-        public double kS = 1.4340999548274365;
-        public double kV = 0.0005403479839709538;
-        public double kA = 0;
+        public double kS = 1.8081320389354283;
+        public double kV = 0.00041;
+        public double kA = 0.00014;
 
         // path profile parameters (in inches)
         public double maxWheelVel = 50;
@@ -82,13 +82,13 @@ public final class MecanumDrive {
         public double maxAngAccel = Math.PI;
 
         // path controller gains
-        public double axialGain = 4;
-        public double lateralGain = 4;
-        public double headingGain = 6; // shared with turn
+        public double axialGain = 0;
+        public double lateralGain = 0;
+        public double headingGain = 0; // shared with turn
 
-        public double axialVelGain = 1;
-        public double lateralVelGain = 0.2;
-        public double headingVelGain = 0.0; // shared with turn
+        public double axialVelGain = 0;
+        public double lateralVelGain = 0;
+        public double headingVelGain = 0; // shared with turn
     }
 
     public static Params PARAMS = new Params();
@@ -232,6 +232,7 @@ public final class MecanumDrive {
         // TODO: reverse motor directions if needed
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)

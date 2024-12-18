@@ -158,19 +158,22 @@ public class BlueBaskets extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Claw claw = new Claw(hardwareMap);
         Lifts lifts = new Lifts(hardwareMap);
 
         TrajectoryActionBuilder toBasketsTAB = drive.actionBuilder(initialPose)
-                                               .setTangent(Math.toRadians(270))
-                                               .splineToLinearHeading(new Pose2d(50, 50, (5*Math.PI)/4), Math.toRadians(345));
+                                                    .setTangent(Math.toRadians(315))
+                                                    .splineToLinearHeading(new Pose2d(57, 53, (5*Math.PI)/4), Math.toRadians(345));
 
         Action basketCloseOut = toBasketsTAB.endTrajectory().fresh()
                 .setTangent(Math.toRadians(200))
-                .splineToLinearHeading(new Pose2d(-60, 64, (Math.PI)), Math.toRadians(120))
-                .build();
+                .splineToLinearHeading(new Pose2d(-60, 63, (Math.PI)), Math.toRadians(138))
+                .build()
+                ;
+
+        waitForStart();
 
         Action toBasketsA = toBasketsTAB.build();
 
@@ -178,11 +181,6 @@ public class BlueBaskets extends LinearOpMode {
             Actions.runBlocking(
                     new SequentialAction(
                             toBasketsA,
-                            lifts.liftUp(),
-                            claw.rotateClawForward(),
-                            claw.openClaw(),
-                            claw.rotateClawBackward(),
-                            lifts.liftDown(),
                             basketCloseOut
                     )
             );
