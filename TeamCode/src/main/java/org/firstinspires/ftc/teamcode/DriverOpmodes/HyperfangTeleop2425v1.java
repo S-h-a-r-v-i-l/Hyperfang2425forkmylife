@@ -241,7 +241,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 rRP.setPower(-1);
             }
 
-            if (distanceSensor.getDistance(DistanceUnit.INCH) > 10)
+            if (distanceSensor.getDistance(DistanceUnit.INCH) > 6)
             {
                 intakeServoExtenderLeft.setPosition(0);
                 intakeServoExtenderRight.setPosition(0);
