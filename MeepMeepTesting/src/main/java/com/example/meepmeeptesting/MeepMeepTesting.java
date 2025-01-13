@@ -26,7 +26,8 @@ public class MeepMeepTesting {
                         .splineToLinearHeading(new Pose2d(57, 53, (5*Math.PI)/4), Math.toRadians(100))
                         .splineToLinearHeading(new Pose2d(48, 25, (8*Math.PI)/4), Math.toRadians(100))
                         .splineToLinearHeading(new Pose2d(57, 53, (5*Math.PI)/4), Math.toRadians(100))
-                        .splineToLinearHeading(new Pose2d(26, 0, Math.PI), Math.toRadians(150))
+                        .setTangent(Math.toRadians(250))
+                        .splineToLinearHeading(new Pose2d(26, 0, Math.PI), Math.toRadians(200))
                         .build());
 
         /*/myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(11.8, 61.7, Math.toRadians(180)))
