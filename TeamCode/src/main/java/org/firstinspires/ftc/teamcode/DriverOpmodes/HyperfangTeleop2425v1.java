@@ -24,15 +24,14 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
     public CRServo clawOpen = null; //actual claw itself
     public Servo rightElbow = null;
     public Servo leftElbow = null;
-    public Servo intakeServoExtenderRight = null;
-    public Servo intakeServoExtenderLeft = null;
+    public CRServo intakeServoExtenderRight = null;
+    public CRServo intakeServoExtenderLeft = null;
     public Servo intakeClawRotaterRight = null;
     public Servo intakeClawRotaterLeft = null;
     public CRServo intakeSpinnerRight = null;
     public CRServo intakeSpinnerLeft = null;
     public DistanceSensor distanceSensor = null;
 
-    int linkageArmIncrement = 0;
     @Override
     public void runOpMode() throws InterruptedException {
         double speed, lift; speed = 1; lift = 1;
@@ -49,8 +48,8 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         clawOpen = hardwareMap.get(CRServo.class, "clawOpen");
         rightElbow = hardwareMap.get(Servo.class, "elbowR");
         leftElbow = hardwareMap.get(Servo.class, "elbowL");
-        intakeServoExtenderRight = hardwareMap.get(Servo.class, "intakeSlidesR");
-        intakeServoExtenderLeft = hardwareMap.get(Servo.class, "intakeSlidesL");
+        intakeServoExtenderRight = hardwareMap.get(CRServo.class, "intakeSlidesR");
+        intakeServoExtenderLeft = hardwareMap.get(CRServo.class, "intakeSlidesL");
         intakeClawRotaterRight = hardwareMap.get(Servo.class, "intakeRotateR");
         intakeClawRotaterLeft = hardwareMap.get(Servo.class, "intakeRotateL");
         intakeSpinnerRight = hardwareMap.get(CRServo.class, "intakeWheelR");
@@ -114,7 +113,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             lL.setPower(-gamepad2.right_stick_y * 0.5);
             rL.setPower(-gamepad2.right_stick_y * 0.5);
 
-            // Todo: Intake controls---------------------------------------------------------------------------------------
+            // Todo: Intake controls----------------------------------------------------------------
 
             // Spinner controls
             if(gamepad1.left_bumper){
@@ -142,18 +141,14 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
 
             // Set Position Special
             if(gamepad1.y){
-                linkageArmIncrement += .1;
-
-                intakeServoExtenderRight.setPosition(linkageArmIncrement);
-                intakeServoExtenderLeft.setPosition(1 - linkageArmIncrement);
+                intakeServoExtenderRight.setPower(1);
+                intakeServoExtenderLeft.setPower(-1);
             } else if(gamepad1.a){
-                linkageArmIncrement += .1;
-
-                intakeServoExtenderRight.setPosition(linkageArmIncrement);
-                intakeServoExtenderLeft.setPosition(1 - linkageArmIncrement);
+                intakeServoExtenderRight.setPower(-1);
+                intakeServoExtenderLeft.setPower(1);
             }
 
-            // Todo: Outtake controls----------------------------------------------------------------------------
+            // Todo: Outtake controls---------------------------------------------------------------
 
             // Elbow code
 
@@ -186,7 +181,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 clawOpen.setPower(0);
             }
 
-            
+
 
 
 
