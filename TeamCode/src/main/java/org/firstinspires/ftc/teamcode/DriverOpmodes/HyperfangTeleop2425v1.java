@@ -110,6 +110,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             telemetry.addData("fl:", leftFront.getPower());
             telemetry.addData("bl:", leftBack.getPower());
             telemetry.addData("Lift motor position", rL.getCurrentPosition());
+            telemetry.update();
 
             lL.setPower(-gamepad2.right_stick_y * 0.6);
             rL.setPower(-gamepad2.right_stick_y * 0.4);
