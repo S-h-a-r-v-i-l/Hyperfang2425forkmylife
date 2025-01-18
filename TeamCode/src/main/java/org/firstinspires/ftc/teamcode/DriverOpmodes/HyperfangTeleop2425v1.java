@@ -54,11 +54,12 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         intakeClawRotaterLeft = hardwareMap.get(Servo.class, "intakeRotateL");
         intakeSpinnerRight = hardwareMap.get(CRServo.class, "intakeWheelR");
         intakeSpinnerLeft = hardwareMap.get(CRServo.class, "intakeWheelL");
-        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance");
+//        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance");
 
 
         lL.setDirection(DcMotorEx.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
+        rightBack.setDirection(DcMotorEx.Direction.REVERSE);
 
         lL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -110,8 +111,13 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             telemetry.addData("bl:", leftBack.getPower());
             telemetry.addData("Lift motor position", rL.getCurrentPosition());
 
-            lL.setPower(-gamepad2.right_stick_y * 0.5);
-            rL.setPower(-gamepad2.right_stick_y * 0.5);
+            lL.setPower(-gamepad2.right_stick_y * 0.6);
+            rL.setPower(-gamepad2.right_stick_y * 0.4);
+            if (gamepad2.right_stick_y >= 0.2) {
+                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+                intakeClawRotaterRight.setPosition(0.2);
+
+            }
 
             // Todo: Intake controls----------------------------------------------------------------
 
