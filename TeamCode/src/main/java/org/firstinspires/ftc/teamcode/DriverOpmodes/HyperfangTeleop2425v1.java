@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @TeleOp
 public class HyperfangTeleop2425v1 extends LinearOpMode{
     public DcMotorEx leftFront = null;
@@ -54,7 +56,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         intakeClawRotaterLeft = hardwareMap.get(Servo.class, "intakeRotateL");
         intakeSpinnerRight = hardwareMap.get(CRServo.class, "intakeWheelR");
         intakeSpinnerLeft = hardwareMap.get(CRServo.class, "intakeWheelL");
-//        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance");
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance");
 
 
         lL.setDirection(DcMotorEx.Direction.REVERSE);
@@ -132,6 +134,10 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             }
 
             // Todo: Intake position controls, update setPosition values and tune
+            if (distanceSensor.getDistance(DistanceUnit.INCH) > 6)
+                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+                intakeClawRotaterRight.setPosition(0.6);
+            }
             if (gamepad1.dpad_left) {
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.6);
@@ -142,6 +148,8 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.45);
             }
+
+
 
             // Todo: Decide if we are using setPosition or not
             // Todo: Also guestimate servo orientation
