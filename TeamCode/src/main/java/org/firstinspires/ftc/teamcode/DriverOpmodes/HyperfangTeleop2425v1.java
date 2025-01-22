@@ -110,50 +110,73 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             telemetry.addData("fl:", leftFront.getPower());
             telemetry.addData("bl:", leftBack.getPower());
             telemetry.addData("Lift motor position", rL.getCurrentPosition());
-            telemetry.update();
+
 
             lL.setPower(-gamepad2.right_stick_y * 0.6);
             rL.setPower(-gamepad2.right_stick_y * 0.4);
-            if (gamepad2.right_stick_y >= 0.2) {
+            telemetry.addData("gamepad2", gamepad2.right_stick_y);
+            if (gamepad2.right_stick_y <= -0.2) {
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.2);
+                intakeClawRotaterLeft.setPosition(1);
+                telemetry.addLine("idk");
+
+
 
             }
 
+
             // Todo: Intake controls----------------------------------------------------------------
 
-            // Spinner controls
+//             Spinner controls
             if(gamepad1.left_bumper){
                 intakeSpinnerLeft.setPower(-1);
                 intakeSpinnerRight.setPower(1);
             } else if(gamepad1.right_bumper){
                 intakeSpinnerLeft.setPower(1);
                 intakeSpinnerRight.setPower(-1);
+            }  else {
+                intakeSpinnerLeft.setPower(0);
+                intakeSpinnerRight.setPower(0);
             }
 
             // Todo: Intake position controls, update setPosition values and tune
             if (gamepad1.dpad_left) {
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.6);
+//                intakeClawRotaterLeft.setPosition(0.15);
             } else if (gamepad1.dpad_right) {
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.2);
+//                intakeClawRotaterLeft.setPosition(1);
             } else if (gamepad1.dpad_up) {
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.45);
+//                intakeClawRotaterLeft.setPosition(0.5);
+
+            } else if (gamepad1.dpad_down) {
+                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+                intakeClawRotaterRight.setPosition(0.65);
+//                intakeClawRotaterLeft.setPosition(0.07);
             }
 
             // Todo: Decide if we are using setPosition or not
             // Todo: Also guestimate servo orientation
 
-            // Set Position Special
-            if(gamepad1.y){
-                intakeServoExtenderRight.setPower(1);
-                intakeServoExtenderLeft.setPower(-1);
-            } else if(gamepad1.a){
-                intakeServoExtenderRight.setPower(-1);
-                intakeServoExtenderLeft.setPower(1);
-            }
+//            if(gamepad1.b){
+//                intakeServoExtenderRight.setPower(0.1);
+//                intakeServoExtenderLeft.setPower(-.1);
+//            } else if(gamepad1.x){
+//                intakeServoExtenderRight.setPower(-.1);
+//                intakeServoExtenderLeft.setPower(.1);
+//            } else {
+//                intakeServoExtenderRight.setPower(0);
+//                intakeServoExtenderLeft.setPower(0);
+//            }
+            telemetry.addData("servoExRL:", intakeServoExtenderRight.getPower());
+            telemetry.addData("servoExLL:", intakeServoExtenderLeft.getPower());
+
+            telemetry.update();
 
             // Todo: Outtake controls---------------------------------------------------------------
 
@@ -162,20 +185,20 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             // Todo: Elbow position controls, update setPosition values and tune
             if (gamepad2.dpad_left) {
                 leftElbow.setDirection(Servo.Direction.REVERSE);
-                leftElbow.setPosition(0.85);
-                rightElbow.setPosition(0.85);
+                leftElbow.setPosition(0.1);
+                rightElbow.setPosition(0.1);
             } else if (gamepad2.dpad_up) {
-                leftElbow.setDirection(Servo.Direction.REVERSE);
-                leftElbow.setPosition(0.75);
-                rightElbow.setPosition(0.75);
-            } else if (gamepad2.dpad_right) {
-                leftElbow.setDirection(Servo.Direction.REVERSE);
-                leftElbow.setPosition(0.6);
-                rightElbow.setPosition(0.6);
-            } else if (gamepad2.dpad_down) {
                 leftElbow.setDirection(Servo.Direction.REVERSE);
                 leftElbow.setPosition(0.2);
                 rightElbow.setPosition(0.2);
+            } else if (gamepad2.dpad_right) {
+                leftElbow.setDirection(Servo.Direction.REVERSE);
+                leftElbow.setPosition(0.4);
+                rightElbow.setPosition(0.4);
+            } else if (gamepad2.dpad_down) {
+                leftElbow.setDirection(Servo.Direction.REVERSE);
+                leftElbow.setPosition(0.6);
+                rightElbow.setPosition(0.6);
             }
 
             // Claw open code

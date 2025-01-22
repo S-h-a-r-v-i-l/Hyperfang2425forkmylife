@@ -15,20 +15,11 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(11.8, 61.7, Math.toRadians(180)))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(11.8, -61.7, Math.toRadians(180)))
+                .setTangent(Math.toRadians(30))
+                .splineToConstantHeading(new Pose2d(58, -62, 212).component1(), Math.toRadians(300))
+                .build());
 
-                .setTangent(Math.toRadians(330))
-                .splineToLinearHeading(new Pose2d(57, 53, (5*Math.PI)/4), Math.toRadians(0))
-                        .setTangent(Math.toRadians(250))
-                        .splineToLinearHeading(new Pose2d(48, 40, (6*Math.PI)/4), Math.toRadians(0))
-                        .splineToLinearHeading(new Pose2d(57, 53, (5*Math.PI)/4), Math.toRadians(100))
-                        .splineToLinearHeading(new Pose2d(57, 40, (6*Math.PI)/4), Math.toRadians(100))
-                        .splineToLinearHeading(new Pose2d(57, 53, (5*Math.PI)/4), Math.toRadians(100))
-                        .splineToLinearHeading(new Pose2d(48, 25, (8*Math.PI)/4), Math.toRadians(100))
-                        .splineToLinearHeading(new Pose2d(57, 53, (5*Math.PI)/4), Math.toRadians(100))
-                        .setTangent(Math.toRadians(250))
-                        .splineToLinearHeading(new Pose2d(26, 0, Math.PI), Math.toRadians(200))
-                        .build());
 
         /*/myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(11.8, 61.7, Math.toRadians(180)))
 
