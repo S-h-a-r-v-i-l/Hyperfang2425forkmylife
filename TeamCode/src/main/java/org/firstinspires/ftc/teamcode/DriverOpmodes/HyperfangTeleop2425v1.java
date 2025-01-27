@@ -147,23 +147,22 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.6);
             }
-            if (gamepad1.dpad_left) {
+            if (gamepad1.dpad_left) { //forward
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.6);
-//                intakeClawRotaterLeft.setPosition(0.15);
-            } else if (gamepad1.dpad_right) {
+            } else if (gamepad1.dpad_right) { //back
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.2);
-//                intakeClawRotaterLeft.setPosition(1);
-            } else if (gamepad1.dpad_up) {
+                intakeClawRotaterLeft.setPosition(1);
+            } else if (gamepad1.dpad_up) { //high
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.45);
-//                intakeClawRotaterLeft.setPosition(0.5);
+                intakeClawRotaterLeft.setPosition(0.5);
 
-            } else if (gamepad1.dpad_down) {
+            } else if (gamepad1.dpad_down) { //down
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
-                intakeClawRotaterRight.setPosition(0.65);
-//                intakeClawRotaterLeft.setPosition(0.07);
+                intakeClawRotaterRight.setPosition(0.60);
+                intakeClawRotaterLeft.setPosition(0.90);
             }
 
 
