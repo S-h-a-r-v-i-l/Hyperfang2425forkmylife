@@ -32,7 +32,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
     public Servo intakeClawRotaterLeft = null;
     public CRServo intakeSpinnerRight = null;
     public CRServo intakeSpinnerLeft = null;
-    public DistanceSensor distanceSensor = null;
+//    public DistanceSensor distanceSensor = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -56,7 +56,7 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
         intakeClawRotaterLeft = hardwareMap.get(Servo.class, "intakeRotateL");
         intakeSpinnerRight = hardwareMap.get(CRServo.class, "intakeWheelR");
         intakeSpinnerLeft = hardwareMap.get(CRServo.class, "intakeWheelL");
-        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance");
+//        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance");
 
 
         lL.setDirection(DcMotorEx.Direction.REVERSE);
@@ -143,10 +143,10 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             }
 
             // Todo: Intake position controls, update setPosition values and tune
-            if (distanceSensor.getDistance(DistanceUnit.INCH) > 6)
-                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
-                intakeClawRotaterRight.setPosition(0.6);
-            }
+//            if (distanceSensor.getDistance(DistanceUnit.INCH) > 6){
+//                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+//                intakeClawRotaterRight.setPosition(0.6);
+//            }
             if (gamepad1.dpad_left) {
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.6);
