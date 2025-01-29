@@ -149,9 +149,9 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             //}
             if (gamepad1.dpad_left) { //forward
 //            if (distanceSensor.getDistance(DistanceUnit.INCH) > 6){
-//                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
-//                intakeClawRotaterRight.setPosition(0.6);
-//            }
+                intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
+                intakeClawRotaterRight.setPosition(0.6);
+            }
             if (gamepad1.dpad_left) {
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.6);
