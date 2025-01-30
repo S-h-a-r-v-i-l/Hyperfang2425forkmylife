@@ -167,7 +167,8 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             } else if (gamepad1.dpad_down) { //down
                 intakeClawRotaterRight.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterRight.setPosition(0.60);
-                intakeClawRotaterLeft.setPosition(0.90);
+
+
             }
 
 
