@@ -20,6 +20,7 @@ public class MechanismTest extends LinearOpMode {
 
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
+        intakeClawRotaterLeft.setDirection(Servo.Direction.REVERSE);
 
         waitForStart();
         while (opModeIsActive()) {
@@ -32,13 +33,14 @@ public class MechanismTest extends LinearOpMode {
             else if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {position -= 0.01;}
 
             if (gamepad2.a) {
+                intakeClawRotaterLeft.setDirection(Servo.Direction.REVERSE);
                 intakeClawRotaterLeft.setPosition(position);
             }
 
             telemetry.addLine("Position: " + position);
             telemetry.update();
 
-            //0.09 for left limit, 0.27 for on the ground
+            //0.11 = ground, 0.20 = horizontal, 0.56 = straight up
         }
     }
 }
