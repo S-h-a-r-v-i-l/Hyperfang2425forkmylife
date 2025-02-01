@@ -7,12 +7,14 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class MechanismTest extends LinearOpMode {
-    public Servo intakeClawRotaterLeft = null;
+    public Servo rightElbow = null;
+    public Servo leftElbow = null;
 
 
     @Override
     public void runOpMode() throws InterruptedException {
-        intakeClawRotaterLeft = hardwareMap.get(Servo.class, "intakeRotateL");
+        rightElbow = hardwareMap.get(Servo.class, "elbowR");
+        leftElbow = hardwareMap.get(Servo.class, "elbowL");
         double position = 0;
 
         Gamepad currentGamepad1 = new Gamepad();
@@ -20,7 +22,7 @@ public class MechanismTest extends LinearOpMode {
 
         Gamepad previousGamepad1 = new Gamepad();
         Gamepad previousGamepad2 = new Gamepad();
-        intakeClawRotaterLeft.setDirection(Servo.Direction.REVERSE);
+        leftElbow.setDirection(Servo.Direction.REVERSE);
 
         waitForStart();
         while (opModeIsActive()) {
@@ -33,14 +35,18 @@ public class MechanismTest extends LinearOpMode {
             else if (currentGamepad2.left_bumper && !previousGamepad2.left_bumper) {position -= 0.01;}
 
             if (gamepad2.a) {
-                intakeClawRotaterLeft.setDirection(Servo.Direction.REVERSE);
-                intakeClawRotaterLeft.setPosition(position);
+                leftElbow.setDirection(Servo.Direction.REVERSE);
+                leftElbow.setPosition(position);
+            }
+            if (gamepad2.b) {
+                rightElbow.setPosition(position);
             }
 
             telemetry.addLine("Position: " + position);
             telemetry.update();
 
-            //0.11 = ground, 0.20 = horizontal, 0.56 = straight up
+            //0.11 = ground, 0.20 = horizontal, 0.56 = straight up left
+            //0.41 = ground, 0.46 = horizontal, 1 = straight up right
         }
     }
 }
