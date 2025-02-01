@@ -190,11 +190,11 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             // Elbow code
 
             // Todo: Elbow position controls, update setPosition values and tune
-            if (gamepad2.dpad_left) {
+            if (gamepad2.a) {
                 leftElbow.setDirection(Servo.Direction.REVERSE);
                 leftElbow.setPosition(0.72);
                 //rightElbow.setPosition(0.70);
-            } else if (gamepad2.dpad_up) {
+            } else if (gamepad2.y) {
                 leftElbow.setDirection(Servo.Direction.REVERSE);
                 leftElbow.setPosition(0);
                 //rightElbow.setPosition(0);
