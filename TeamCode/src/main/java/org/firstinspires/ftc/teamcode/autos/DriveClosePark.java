@@ -41,11 +41,10 @@ public class DriveClosePark extends LinearOpMode{
         lL = hardwareMap.get(DcMotorEx.class, "leftLift");
         rL = hardwareMap.get(DcMotorEx.class, "rightLift");
 
-        rRP = hardwareMap.get(CRServo.class, "hangR");
-        lRP = hardwareMap.get(CRServo.class, "hangL");
+        //rRP = hardwareMap.get(CRServo.class, "hangR");
+        //lRP = hardwareMap.get(CRServo.class, "hangL");
         clawOpen = hardwareMap.get(CRServo.class, "clawOpen");
-        armServoRight = hardwareMap.get(CRServo.class, "elbowR");
-        armServoLeft = hardwareMap.get(CRServo.class, "elbowL");
+
         intakeServoExtenderRight = hardwareMap.get(CRServo.class, "intakeSlidesR");
         intakeServoExtenderLeft = hardwareMap.get(CRServo.class, "intakeSlidesL");
         intakeClawRotaterRight = hardwareMap.get(Servo.class, "intakeRotateR");
@@ -53,9 +52,8 @@ public class DriveClosePark extends LinearOpMode{
         intakeSpinnerRight = hardwareMap.get(CRServo.class, "intakeWheelR");
         intakeSpinnerLeft = hardwareMap.get(CRServo.class, "intakeWheelL");
 
-        leftBack.setDirection(DcMotorEx.Direction.REVERSE);
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorEx.Direction.REVERSE);
         lL.setDirection(DcMotorEx.Direction.REVERSE);
 
 
@@ -78,7 +76,7 @@ public class DriveClosePark extends LinearOpMode{
             rightBack.setPower(0.3);
             leftFront.setPower(0.3);
             rightFront.setPower(0.3);
-            sleep(2000);
+            sleep(3000);
         }
     }
 

@@ -113,15 +113,17 @@ public class HyperfangTeleop2425v1 extends LinearOpMode{
             telemetry.addData("bl:", leftBack.getPower());
             telemetry.addData("Lift motor position", rL.getCurrentPosition());
 
-
-            lL.setPower(-gamepad2.right_stick_y * 0.6);
-            rL.setPower(-gamepad2.right_stick_y * 0.4);
-            telemetry.addData("gamepad2", gamepad2.right_stick_y);
-            if (gamepad2.right_stick_y <= -0.2) {
-                intakeClawRotaterLeft.setPosition(0.56);
-                intakeClawRotaterRight.setPosition(1);
-
+            if (intakeClawRotaterLeft.getPosition() >= 0.56 || intakeClawRotaterRight.getPosition() > 1) {
+                lL.setPower(-gamepad2.right_stick_y * 0.6);
+                rL.setPower(-gamepad2.right_stick_y * 0.4);
             }
+
+            telemetry.addData("gamepad2", gamepad2.right_stick_y);
+//            if (gamepad2.right_stick_y <= -0.2) {
+//                intakeClawRotaterLeft.setPosition(0.56);
+//                intakeClawRotaterRight.setPosition(1);
+//
+//            }
 
 
             // Todo: Intake controls----------------------------------------------------------------
